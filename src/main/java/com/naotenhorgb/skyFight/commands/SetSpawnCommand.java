@@ -18,11 +18,12 @@ public class SetSpawnCommand implements CommandExecutor {
             sender.sendMessage("Spawn setado com sucesso!");
             ((Player) sender).teleport(locationUtils.getSpawn());
 
-            if (args[0].equalsIgnoreCase("debug")) {
+            if (args.length > 0 && args[0].equalsIgnoreCase("debug")) {
                 sender.sendMessage(locationUtils.getSpawn().toString());
             }
+        } else {
+            sender.sendMessage("Você só pode executar este comando estando ingame!");
         }
-        sender.sendMessage("Você só pode executar este comando estando ingame!");
         return false;
     }
 }
