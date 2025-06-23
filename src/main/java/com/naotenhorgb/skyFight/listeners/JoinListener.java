@@ -5,9 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class onJoinEvent implements Listener {
+public class JoinListener implements Listener {
 
     private final LocationUtils locationUtils = new LocationUtils();
+
+    // TODO: replace manual tp with teleportToSpawn()
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
