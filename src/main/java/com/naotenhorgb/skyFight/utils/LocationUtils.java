@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 public class LocationUtils {
 
-    public Location spawn;
+    private Location spawn;
 
     public void setSpawn(Location spawn) {
         this.spawn = spawn;
