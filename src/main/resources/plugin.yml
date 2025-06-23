@@ -1,0 +1,11 @@
+name: SkyFight
+version: '1.0'
+main: com.naotenhorgb.skyFight.SkyFight
+authors: [ naotenhorgb ]
+description: Plugin
+commands:
+  setspawn:
+    permission: skyfight.setspawn
+    description: "Seta spawn."
+  helloworld:
+    description: "Comando padrão."
