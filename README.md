@@ -1,7 +1,7 @@
 ## Features / Tasklist
 
 - **Spawn System** ❌  
-  - Persistent spawn location ("spawn.yml", future database support)  
+  - Persistent spawn location
   - Immediate saving on set command  
   - Auto-load on plugin start  
 
@@ -56,3 +56,10 @@
 
 - **Redis Integration** ❌  
   - For external system communication or faster caching (future)
+
+- **Miscellaneous** ❌
+  - Spawn position → later database  
+  - Safe Zone: Radius, height, return-blocking  
+  - Void system: Minimum Y, only affects ingame players  
+  - Point system: Cause-based, configurable gain/loss per event  
+  - Item layout: Player-defined and persistent  
