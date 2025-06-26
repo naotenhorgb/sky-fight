@@ -10,7 +10,7 @@ public class JoinListener implements Listener {
 
     private final LocationUtils locationUtils;
 
-    public JoinListener(LocationUtils locationUtils){
+    public JoinListener(LocationUtils locationUtils) {
         this.locationUtils = locationUtils;
     }
 

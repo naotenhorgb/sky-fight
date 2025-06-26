@@ -12,7 +12,7 @@ public class WeatherListener implements Listener {
      */
 
     @EventHandler
-    public void onWeather(WeatherChangeEvent e){
+    public void onWeather(WeatherChangeEvent e) {
         e.getWorld().setStorm(false);
         e.setCancelled(true);
     }
