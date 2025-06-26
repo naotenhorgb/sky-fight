@@ -13,4 +13,7 @@ public class LocationUtils {
     public Location getSpawn() {
         return spawn;
     }
+
+    // TODO: add integration with the yaml
+
 }

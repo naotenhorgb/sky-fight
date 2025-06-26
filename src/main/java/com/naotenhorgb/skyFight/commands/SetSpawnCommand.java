@@ -8,7 +8,11 @@ import org.bukkit.entity.Player;
 
 public class SetSpawnCommand implements CommandExecutor {
 
-    private final LocationUtils locationUtils = new LocationUtils();
+    private final LocationUtils locationUtils;
+
+    public SetSpawnCommand(LocationUtils locationUtils){
+        this.locationUtils = locationUtils;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
