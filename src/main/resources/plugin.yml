@@ -3,9 +3,17 @@ version: '1.0'
 main: com.naotenhorgb.skyFight.SkyFight
 authors: [ naotenhorgb ]
 description: Plugin
+load: POSTWORLD
 commands:
   setspawn:
-    permission: skyfight.setspawn
+    permission: skyfight.admin
     description: "Seta spawn."
-  helloworld:
-    description: "Comando padrão."
+  setup:
+    permission: skyfight.admin
+    description: "Inicia o setup de set."
+  build:
+    permission: skyfight.admin
+    description: "Entra no modo de build. Fique isento dos checks ingame"
+  lobby:
+    permission: skyfight.default
+    description: "Muda de estado para outro lugar"

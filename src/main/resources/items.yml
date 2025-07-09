@@ -1,0 +1,17 @@
+hotbar_item:
+  name:
+    lobby_tp: "ENDER_PEARL"
+    lobby_compass: "COMPASS"
+    lobby_player: "SKULL_HEAD"
+    lobby_config: "ENDER_EYE"
+    arena_tp: "ENDER_PEARL"
+    arena_config: "NETHER_STAR"
+    arena_player: "SKULL_HEAD"
+  slot:
+    lobby_tp: 1
+    lobby_compass: 2
+    lobby_player: 3
+    lobby_config: 4
+    arena_tp: 5
+    arena_config: 6
+    arena_player: 7

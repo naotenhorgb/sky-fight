@@ -10,23 +10,23 @@ public class SetSpawnCommand implements CommandExecutor {
 
     private final LocationUtils locationUtils;
 
-    public SetSpawnCommand(LocationUtils locationUtils){
+    public SetSpawnCommand(LocationUtils locationUtils) {
         this.locationUtils = locationUtils;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (sender instanceof Player) {
-
-            locationUtils.setSpawn(((Player) sender).getLocation());
-            sender.sendMessage("Spawn setado com sucesso!");
-            ((Player) sender).teleport(locationUtils.getSpawn());
-
-            if (args.length > 0 && args[0].equalsIgnoreCase("debug")) {
-                sender.sendMessage(locationUtils.getSpawn().toString());
-            }
-        } else {
+        if (!(sender instanceof Player)) {
             sender.sendMessage("Você só pode executar este comando estando ingame!");
+            return false;
+        }
+
+        locationUtils.setLobbySpawn(((Player) sender).getLocation());
+        sender.sendMessage("Spawn setado com sucesso!");
+        ((Player) sender).teleport(locationUtils.getLobbySpawn());
+
+        if (args.length > 0 && args[0].equalsIgnoreCase("debug")) {
+            sender.sendMessage(locationUtils.getLobbySpawn().toString());
         }
         return false;
     }

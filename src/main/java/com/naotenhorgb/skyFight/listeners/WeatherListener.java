@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.listeners.general;
+package com.naotenhorgb.skyFight.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,9 +12,8 @@ public class WeatherListener implements Listener {
      */
 
     @EventHandler
-    public void onWeather(WeatherChangeEvent e) {
-        e.getWorld().setStorm(false);
-        e.setCancelled(true);
+    public void onWeather(WeatherChangeEvent event) {
+        event.setCancelled(true);
     }
 
 }
