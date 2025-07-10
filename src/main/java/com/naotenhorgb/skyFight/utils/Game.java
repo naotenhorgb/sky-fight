@@ -16,16 +16,16 @@ public class Game {
     }
 
     public void sendToGameSpawn(Player player){
-        giveGameSpawnInventory(player);
-        player.teleport(locationUtils.getGameSpawn());
         ingameManager.setPlayer(player, StatusEnums.OUTGAME);
+        player.teleport(locationUtils.getGameSpawn());
+        giveGameSpawnInventory(player);
         player.setHealth(player.getMaxHealth());
     }
 
     public void sendToLobby(Player player){
-        giveLobbyInventory(player);
-        player.teleport(locationUtils.getLobbySpawn());
         ingameManager.setPlayer(player, StatusEnums.OUTGAME);
+        player.teleport(locationUtils.getLobbySpawn());
+        giveLobbyInventory(player);
         player.setHealth(player.getMaxHealth());
     }
 
@@ -53,8 +53,8 @@ public class Game {
 
     public void handleDeath(Player victim, @Nullable Player attacker) {
         ingameManager.setPlayer(victim, StatusEnums.OUTGAME);
-        giveGameSpawnInventory(victim);
         victim.teleport(locationUtils.getGameSpawn());
+        giveGameSpawnInventory(victim);
 
         if(attacker != null) {
             attacker.setHealth(attacker.getMaxHealth());

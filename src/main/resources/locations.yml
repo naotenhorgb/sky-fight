@@ -1,10 +1,10 @@
-lobby_spawn: "world 0 100 0 0 0"
-game_spawn: "world2 0 100 0 0 0"
+lobby_spawn: "world2:0:100:0:0:0"
+game_spawn: "world2:0:100:0:0:0"
 
 game_safezone:
-  - "world2 0 64 0 0 0"
-  - "world2 0 64 0 0 0"
+  - "world2:0:64:0:0:0"
+  - "world2:0:64:0:0:0"
 
 game_boundaries:
-  - "world2 0 64 0 0 0"
-  - "world2 0 64 0 0 0"
+  - "world2:0:64:0:0:0"
+  - "world2:0:64:0:0:0"

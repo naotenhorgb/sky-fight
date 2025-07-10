@@ -6,17 +6,12 @@ import com.naotenhorgb.skyFight.commands.SetSpawnCommand;
 import com.naotenhorgb.skyFight.commands.SetupCommand;
 import com.naotenhorgb.skyFight.listeners.*;
 import com.naotenhorgb.skyFight.managers.IngameManager;
-import com.naotenhorgb.skyFight.managers.LocationsConfig;
 import com.naotenhorgb.skyFight.utils.Cuboid;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public final class SkyFight extends JavaPlugin {
 
@@ -24,45 +19,16 @@ public final class SkyFight extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        if (!getDataFolder().exists()) {
-            getDataFolder().mkdirs();
-            getLogger().info("Criou dataFolder: " + getDataFolder().getAbsolutePath());
-        }
-
-        // 2) testa se o recurso está realmente embutido
-        InputStream test = getResource("locations.yml");
-        if (test == null) {
-            getLogger().severe(">>>>> RECURSO 'locations.yml' NÃO ENCONTRADO NO JAR! <<<<<");
-        } else {
-            try {
-                getLogger().info("Recurso encontrado, tamanho = " + test.available() + " bytes");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        // 3) apenas se existir, copia para disk
         saveResource("locations.yml", false);
-
-        // 4) agora carrega
-        LocationsConfig.init(this);
-        LocationsConfig cfg = LocationsConfig.load();
-        getLogger().info("locations.yml carregado: lobby_spawn=" + cfg.lobby_spawn);
 
         final IngameManager ingameManager = new IngameManager();
         final LocationUtils locationUtils = new LocationUtils();
         final Game game = new Game(ingameManager, locationUtils);
 
-        // this is all temp
-        final Location lobbySpawn = new Location(Bukkit.getWorld("world2"), 0, 49, 0);
-        final Location gameSpawn = new Location(Bukkit.getWorld("world3"), -1053, 55, 610);
-        final Cuboid arenaSafezone = new Cuboid(new Location(Bukkit.getWorld("world3"), -1058, 59, 616), new Location(Bukkit.getWorld("world3"), -1048, 53, 604));
-        final Cuboid arenaBoundaries = new Cuboid(new Location(Bukkit.getWorld("world3"), 2000, 0, 2000), new Location(Bukkit.getWorld("world3"), 2000, 1, 2000));
-
-        locationUtils.setGameSafezone(arenaSafezone);
-        locationUtils.setLobbySpawn(lobbySpawn);
-        locationUtils.setGameSpawn(gameSpawn);
-        locationUtils.setGameBoundaries(arenaBoundaries);
+        Location lobbySpawn = locationUtils.getLobbySpawn();
+        Location gameSpawn = locationUtils.getGameSpawn();
+        Cuboid gameSafezone = locationUtils.getGameSafezone();
+        Cuboid gameBoundaries = locationUtils.getGameBoundaries();
 
         // TODO: replace with more modular system to register commands
 
