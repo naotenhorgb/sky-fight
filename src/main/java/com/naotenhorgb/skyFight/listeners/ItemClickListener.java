@@ -2,7 +2,7 @@ package com.naotenhorgb.skyFight.listeners;
 
 import com.naotenhorgb.skyFight.managers.IngameManager;
 import com.naotenhorgb.skyFight.utils.MatchMaterial;
-import com.naotenhorgb.skyFight.utils.StatusEnums;
+import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

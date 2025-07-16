@@ -12,7 +12,7 @@ commands:
     permission: skyfight.admin
     description: "Inicia o setup de set."
   build:
-    permission: skyfight.admin
+    permission: skyfight.buildcommand
     description: "Entra no modo de build. Fique isento dos checks ingame"
   lobby:
     permission: skyfight.default

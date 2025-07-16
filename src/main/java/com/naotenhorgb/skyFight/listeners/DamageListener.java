@@ -9,16 +9,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import static com.naotenhorgb.skyFight.utils.StatusEnums.INGAME;
-import static com.naotenhorgb.skyFight.utils.StatusEnums.OUTGAME;
 
-public class ExtraDamageListener implements Listener {
+public class DamageListener implements Listener {
 
     private final LocationUtils locationUtils;
     private final IngameManager ingameManager;
     private final Game game;
 
-    public ExtraDamageListener(LocationUtils locationUtils, IngameManager ingameManager, Game game) {
+    public DamageListener(LocationUtils locationUtils, IngameManager ingameManager, Game game) {
         this.locationUtils = locationUtils;
         this.ingameManager = ingameManager;
         this.game = game;
@@ -27,7 +25,13 @@ public class ExtraDamageListener implements Listener {
     @EventHandler
     public void onExtraDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
+
         Player victim = (Player) event.getEntity();
+
+        if (victim.getWorld() == locationUtils.getLobbySpawn().getWorld()) {
+            event.setCancelled(true);
+            return;
+        }
 
         if (locationUtils.getGameSafezone().isIn(victim)) {
             event.setCancelled(true);
@@ -43,9 +47,9 @@ public class ExtraDamageListener implements Listener {
             if (event instanceof EntityDamageByEntityEvent &&
                     ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
                 Player attacker = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-                game.handleDeath(victim, attacker);
+                game.kill(victim, attacker);
             } else {
-                game.handleDeath(victim, null);
+                game.kill(victim, null);
             }
         }
     }

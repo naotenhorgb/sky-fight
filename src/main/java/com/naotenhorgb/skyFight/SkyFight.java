@@ -4,22 +4,29 @@ import com.naotenhorgb.skyFight.commands.BuildCommand;
 import com.naotenhorgb.skyFight.commands.LobbyCommand;
 import com.naotenhorgb.skyFight.commands.SetSpawnCommand;
 import com.naotenhorgb.skyFight.commands.SetupCommand;
+import com.naotenhorgb.skyFight.data.LocationsConfig;
+import com.naotenhorgb.skyFight.data.MessagesConfig;
+import com.naotenhorgb.skyFight.data.SkyfightConfig;
 import com.naotenhorgb.skyFight.listeners.*;
 import com.naotenhorgb.skyFight.managers.IngameManager;
 import com.naotenhorgb.skyFight.utils.Cuboid;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SkyFight extends JavaPlugin {
 
-
     @Override
     public void onEnable() {
 
-        saveResource("locations.yml", false);
+        // TODO: remove hasStatus method and replace with simpler status == StatusEnums.[enum]
+
+        LocationsConfig.load();
+        SkyfightConfig.load();
+        MessagesConfig.load();
 
         final IngameManager ingameManager = new IngameManager();
         final LocationUtils locationUtils = new LocationUtils();
@@ -30,33 +37,29 @@ public final class SkyFight extends JavaPlugin {
         Cuboid gameSafezone = locationUtils.getGameSafezone();
         Cuboid gameBoundaries = locationUtils.getGameBoundaries();
 
-        // TODO: replace with more modular system to register commands
-
         this.getCommand("setspawn").setExecutor(new SetSpawnCommand(locationUtils));
         this.getCommand("setup").setExecutor(new SetupCommand(locationUtils));
         this.getCommand("lobby").setExecutor(new LobbyCommand(locationUtils, ingameManager, game));
         this.getCommand("build").setExecutor(new BuildCommand(ingameManager, game));
 
-        /*
-        likely needs to be replaced with something else
-        due to too much listeners in future
-        TODO: replace with more modular system to register events
-         */
-
         final PluginManager plugin = getServer().getPluginManager();
-        plugin.registerEvents(new JoinListener(game), this);
-        plugin.registerEvents(new HungerListener(), this);
-        plugin.registerEvents(new DropListener(), this);
-        plugin.registerEvents(new WeatherListener(), this);
-        plugin.registerEvents(new SpawnListener(locationUtils), this);
-        plugin.registerEvents(new BaseDamageListener(locationUtils), this);
-        plugin.registerEvents(new ExtraDamageListener(locationUtils, ingameManager, game), this);
-        plugin.registerEvents(new ItemClickListener(ingameManager), this);
-        plugin.registerEvents(new PlayerMovementListener(locationUtils, ingameManager, game), this);
+        if(Boolean.parseBoolean(SkyfightConfig.get().setuped)) {
+            plugin.registerEvents(new JoinListener(ingameManager, game), this);
+            plugin.registerEvents(new HungerListener(), this);
+            plugin.registerEvents(new DropListener(ingameManager), this);
+            plugin.registerEvents(new WeatherListener(), this);
+            plugin.registerEvents(new SpawnListener(locationUtils), this);
+            plugin.registerEvents(new DamageListener(locationUtils, ingameManager, game), this);
+            plugin.registerEvents(new ItemClickListener(ingameManager), this);
+            plugin.registerEvents(new PlayerMovementListener(locationUtils, ingameManager, game), this);
+            plugin.registerEvents(new BlockBreakListener(ingameManager), this);
+            plugin.registerEvents(new BlockPlaceListener(ingameManager), this);
+        } else {
+            Bukkit.getConsoleSender().sendMessage("\n\n");
+            MessagesConfig.send(Bukkit.getConsoleSender(), "no_setup");
+            Bukkit.getConsoleSender().sendMessage("\n\n");
+        }
 
-
-        // TODO: test if these blocks works
-        // TODO: replace with less hardcoded setGamerule for everything when it happens a lot of times
         lobbySpawn.getWorld().setGameRuleValue("ANNOUNCE_ADVANCEMENTS", "false");
         lobbySpawn.getWorld().setGameRuleValue("DO_FIRE_TICK", "false");
         lobbySpawn.getWorld().setGameRuleValue("DO_MOB_SPAWNING", "false");
@@ -87,9 +90,5 @@ public final class SkyFight extends JavaPlugin {
 
     @Override
     public void onDisable() {
-    }
-
-    public boolean isBungee() {
-        return true;
     }
 }

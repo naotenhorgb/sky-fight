@@ -5,20 +5,19 @@ import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
-public class DropListener implements Listener {
+public class BlockPlaceListener implements Listener {
 
     private final IngameManager ingameManager;
 
-    public DropListener(IngameManager ingameManager) {
+    public BlockPlaceListener(IngameManager ingameManager) {
         this.ingameManager = ingameManager;
     }
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent event) {
+    public void onBlockPlace(BlockPlaceEvent event){
         if ((!ingameManager.hasStatus(event.getPlayer(), StatusEnums.BUILD)) ||
-                event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) event.setCancelled(true);
+                !event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) event.setCancelled(true);
     }
-
 }

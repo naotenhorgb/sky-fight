@@ -112,6 +112,11 @@ public class Cuboid {
         return this.isIn(entity.getLocation());
     }
 
+    public boolean isInIgnoreY(final Location loc) {
+        return loc.getWorld() == this.world && loc.getBlockX() >= this.xMin && loc.getBlockX() <= this.xMax && loc
+                .getBlockZ() >= this.zMin && loc.getBlockZ() <= this.zMax;
+    }
+
     public boolean isInWithMarge(final Location loc, final double marge) {
         return loc.getWorld() == this.world && loc.getX() >= this.xMinCentered - marge && loc.getX() <= this.xMaxCentered + marge && loc.getY() >= this.yMinCentered - marge && loc
                 .getY() <= this.yMaxCentered + marge && loc.getZ() >= this.zMinCentered - marge && loc.getZ() <= this.zMaxCentered + marge;

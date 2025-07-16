@@ -2,7 +2,7 @@ package com.naotenhorgb.skyFight.commands;
 
 import com.naotenhorgb.skyFight.managers.IngameManager;
 import com.naotenhorgb.skyFight.utils.Game;
-import com.naotenhorgb.skyFight.utils.StatusEnums;
+import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,12 +23,21 @@ public class BuildCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
+
+        if (!player.hasPermission("skyfight.buildcommand")) return true;
+
+        if (ingameManager.hasStatus(player, StatusEnums.INGAME)) {
+            player.sendMessage("Necessário sair da partida para entrar no modo BUILD");
+            return true;
+        }
+
         if (ingameManager.hasStatus(player, StatusEnums.BUILD)) {
             game.sendToLobby(player);
         } else {
             ingameManager.setPlayer(player, StatusEnums.BUILD);
             player.setGameMode(GameMode.CREATIVE);
         }
+
         return false;
     }
 }

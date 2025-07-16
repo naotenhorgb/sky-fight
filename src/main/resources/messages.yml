@@ -1,0 +1,23 @@
+prefix: "&bSkyFight &f»"
+no_permission: "&cVocê não tem permissão para executar este comando."
+
+setup_0: "Fique no local do lobby e use &e/setup &fpara salvar a posição."
+
+setup_1: "Fique dentro da arena e use &e/setup &fpara salvar o spawn do jogo. (Mundo diferente do spawn)"
+
+setup_2: "Vá até a primeira ponta da zona segura e use &e/setup &fpara salvar a posição 1."
+
+setup_3: "Vá até a segunda ponta da zona segura e use &e/setup &fpara salvar a posição 2."
+
+setup_4: "Fique na altura onde os jogadores morrem ao cair e use &e/setup &fpara salvar o limite Y."
+
+setup_5: "Vá até a primeira ponta do limite do mapa e use &e/setup &fpara salvar a posição 1"
+
+setup_6: "Vá até a segunda ponta do limite do mapa e use &e/setup &fpara finalizar o setup."
+
+setup_7: "Setup finalizado."
+
+setup_reset: "&cSetup reiniciado. Use &e/setup &cpara começar novamente."
+setup_same_world: "&cVocê está no mesmo mundo do lobby. Vá para outro mundo."
+unknown_error: "&cErro desconhecido..."
+no_setup: "&cSetup não encontrado, funções desativadas até ser feito um /setup ou /manuallysetup cada função"

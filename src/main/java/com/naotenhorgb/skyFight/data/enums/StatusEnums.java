@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.data.enums;
 
 public enum StatusEnums {
     SPECTATOR,

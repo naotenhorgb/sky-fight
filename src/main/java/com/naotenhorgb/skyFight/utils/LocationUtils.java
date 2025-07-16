@@ -1,6 +1,6 @@
 package com.naotenhorgb.skyFight.utils;
 
-import com.naotenhorgb.skyFight.managers.LocationsConfig;
+import com.naotenhorgb.skyFight.data.LocationsConfig;
 import org.bukkit.Location;
 
 public class LocationUtils {
@@ -12,6 +12,7 @@ public class LocationUtils {
     private Location gameSpawn;
     private Cuboid arenaSafezone;
     private Cuboid gameBoundaries;
+    private int deathY;
 
     public LocationUtils() {
         this.config = LocationsConfig.load();
@@ -19,6 +20,7 @@ public class LocationUtils {
         this.gameSpawn = yamlConverter.stringToLocation(config.game_spawn);
         this.arenaSafezone = yamlConverter.stringsToCuboid(config.game_safezone);
         this.gameBoundaries = yamlConverter.stringsToCuboid(config.game_boundaries);
+        this.deathY = config.void_yloc;
     }
 
     public Location getLobbySpawn() {
@@ -37,8 +39,8 @@ public class LocationUtils {
         return gameBoundaries;
     }
 
-    public LocationsConfig getConfig() {
-        return config;
+    public int getDeathY() {
+        return deathY;
     }
 
     public void setLobbySpawn(Location lobbySpawn) {
@@ -62,6 +64,12 @@ public class LocationUtils {
     public void setGameBoundaries(Cuboid gameBoundaries) {
         this.gameBoundaries = gameBoundaries;
         config.game_boundaries = yamlConverter.cuboidToString(gameBoundaries);
+        config.save();
+    }
+
+    public void setDeathY(int deathY) {
+        this.deathY = deathY;
+        config.void_yloc = deathY;
         config.save();
     }
 }
