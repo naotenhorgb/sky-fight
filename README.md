@@ -63,3 +63,8 @@
   - Void system: Minimum Y, only affects ingame players  
   - Point system: Cause-based, configurable gain/loss per event  
   - Item layout: Player-defined and persistent  
+
+- **Non-code / Extra** ❌
+  - Create spigot page ❌
+  - Create a map auto install system ❌
+  - Create public playable maps for download ❌
