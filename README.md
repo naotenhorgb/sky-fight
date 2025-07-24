@@ -1,27 +1,27 @@
 ## Features / Tasklist
 
-- **Spawn System** ❌  
-  - Persistent spawn location
-  - Immediate saving on set command  
-  - Auto-load on plugin start  
+- **Spawn System** ✔️ 
+  - Persistent spawn location ✔️
+  - Immediate saving on set command ✔️
+  - Auto-load on plugin start ✔️
 
-- **General Listeners** ❌  
+- **General Listeners** ✔️  
   - Event handling for core gameplay mechanics  
 
 - **YAML Configuration** ❌  
-  - Base config files  
+  - Base config files ✔️
   - Fully configurable points system, spawn limits, and item settings  
 
-- **Secured Zone (Safe Zone)** ❌  
-  - Players can leave, but can't return  
-  - Height and radius limits (configurable per map)  
-  - Void protection applies only to "ingame" players  
-  - Efficient radius check for high player count  
+- **Secured Zone (Safe Zone)** ✔️  
+  - Players can leave, but can't return ✔️  
+  - Void, and region limit ✔️  
+  - Void protection applies only to "ingame" players ✔️  
+  - Efficient radius check for high player count [requires testing] ❌
 
-- **Void/Boundary System** ❌  
-  - Instant death below configured Y-level  
-  - Only affects "ingame" players (no creative/spectator)  
-  - Configurable minimum Y per map  
+- **Void/Boundary System** ✔️  
+  - Instant death below configured Y-level ✔️  
+  - Only affects "ingame" players (no creative/spectator) ✔️  
+  - Configurable minimum Y per map ✔️
 
 - **Damage / Death System** ❌  
   - Custom damage tracking  
@@ -63,3 +63,8 @@
   - Void system: Minimum Y, only affects ingame players  
   - Point system: Cause-based, configurable gain/loss per event  
   - Item layout: Player-defined and persistent  
+
+- **Non-code / Extra** ❌
+  - Create spigot page ❌
+  - Create a map auto install system ❌
+  - Create public playable maps for download ❌
