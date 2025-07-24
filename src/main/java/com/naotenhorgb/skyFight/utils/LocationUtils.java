@@ -1,6 +1,8 @@
 package com.naotenhorgb.skyFight.utils;
 
 import com.naotenhorgb.skyFight.data.LocationsConfig;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 
 public class LocationUtils {
@@ -8,10 +10,15 @@ public class LocationUtils {
     private final LocationsConfig config;
     private final YamlConverter yamlConverter = new YamlConverter();
 
+    @Getter
     private Location lobbySpawn;
+    @Getter
     private Location gameSpawn;
+    @Getter @Setter
     private Cuboid arenaSafezone;
+    @Getter
     private Cuboid gameBoundaries;
+    @Getter
     private int deathY;
 
     public LocationUtils() {
@@ -23,24 +30,8 @@ public class LocationUtils {
         this.deathY = config.void_yloc;
     }
 
-    public Location getLobbySpawn() {
-        return lobbySpawn;
-    }
-
-    public Location getGameSpawn() {
-        return gameSpawn;
-    }
-
     public Cuboid getGameSafezone() {
         return arenaSafezone;
-    }
-
-    public Cuboid getGameBoundaries() {
-        return gameBoundaries;
-    }
-
-    public int getDeathY() {
-        return deathY;
     }
 
     public void setLobbySpawn(Location lobbySpawn) {

@@ -1,6 +1,6 @@
 package com.naotenhorgb.skyFight.commands;
 
-import com.naotenhorgb.skyFight.managers.IngameManager;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
@@ -11,13 +11,13 @@ import org.bukkit.entity.Player;
 
 public class LobbyCommand implements CommandExecutor {
 
-    private final IngameManager ingameManager;
+    private final PlayerManager playerManager;
     private final Game game;
     private final LocationUtils locationUtils;
 
-    public LobbyCommand(LocationUtils locationUtils, IngameManager ingameManager, Game game) {
+    public LobbyCommand(LocationUtils locationUtils, PlayerManager playerManager, Game game) {
         this.locationUtils = locationUtils;
-        this.ingameManager = ingameManager;
+        this.playerManager = playerManager;
         this.game = game;
     }
 
@@ -27,7 +27,7 @@ public class LobbyCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (ingameManager.hasStatus(player, StatusEnums.INGAME)) {
+        if (playerManager.getPlayerStatus(player).getStatus() == StatusEnums.ENTER_INGAME) {
             game.sendToGameSpawn(player);
             return true;
         } else {

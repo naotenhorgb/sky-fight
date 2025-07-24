@@ -1,8 +1,9 @@
 package com.naotenhorgb.skyFight.listeners;
 
+import com.naotenhorgb.skyFight.data.PlayerStatus;
 import com.naotenhorgb.skyFight.data.SkyfightConfig;
 import com.naotenhorgb.skyFight.data.enums.InventoryEnums;
-import com.naotenhorgb.skyFight.managers.IngameManager;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
@@ -18,14 +19,14 @@ public class PlayerMovementListener implements Listener {
     private final boolean setup;
     private final World lobbyWorld;
     private final LocationUtils locationUtils;
-    private final IngameManager ingameManager;
+    private final PlayerManager playerManager;
     private final Game game;
 
-    public PlayerMovementListener(LocationUtils locUtils, IngameManager ingame, Game game) {
+    public PlayerMovementListener(LocationUtils locUtils, PlayerManager ingame, Game game) {
         this.setup = Boolean.parseBoolean(SkyfightConfig.get().setuped);
         this.lobbyWorld = locUtils.getLobbySpawn().getWorld();
         this.locationUtils = locUtils;
-        this.ingameManager = ingame;
+        this.playerManager = ingame;
         this.game = game;
     }
 
@@ -34,7 +35,8 @@ public class PlayerMovementListener implements Listener {
         if (!setup) return;
 
         Player player = event.getPlayer();
-        Enum<StatusEnums> status = ingameManager.getStatus(player);
+        PlayerStatus playerStatus = playerManager.getPlayerStatus(player);
+        Enum<StatusEnums> status = playerStatus.getStatus();
 
         if (player.getWorld().equals(lobbyWorld)) return;
         if (status == StatusEnums.BUILD || player.getGameMode() == GameMode.SPECTATOR) return;
@@ -42,17 +44,17 @@ public class PlayerMovementListener implements Listener {
         if (player.getLocation().getY() <= locationUtils.getGameSafezone().getyMin()
                 && status == StatusEnums.OUTGAME) {
             game.giveInventory(player, InventoryEnums.INGAME);
-            ingameManager.setPlayer(player, StatusEnums.INGAME);
+            playerStatus.setStatus(StatusEnums.ENTER_INGAME);
         }
 
         if (player.getLocation().getY() < locationUtils.getDeathY() || !locationUtils.getGameBoundaries().isInIgnoreY(player.getLocation())) {
             if (status == StatusEnums.INGAME) {
-                game.kill(player, null);
+                game.kill(player);
             }
         }
 
         if (locationUtils.getGameSafezone().isIn(player) && status == StatusEnums.INGAME) {
-            game.kill(player, null);
+            game.kill(player);
         }
 
     }

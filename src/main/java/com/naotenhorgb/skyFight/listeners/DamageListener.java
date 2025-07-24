@@ -1,6 +1,8 @@
 package com.naotenhorgb.skyFight.listeners;
 
-import com.naotenhorgb.skyFight.managers.IngameManager;
+import com.naotenhorgb.skyFight.data.PlayerStatus;
+import com.naotenhorgb.skyFight.data.enums.StatusEnums;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
 import org.bukkit.entity.Player;
@@ -13,20 +15,22 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageListener implements Listener {
 
     private final LocationUtils locationUtils;
-    private final IngameManager ingameManager;
+    private final PlayerManager playerManager;
     private final Game game;
 
-    public DamageListener(LocationUtils locationUtils, IngameManager ingameManager, Game game) {
+    public DamageListener(LocationUtils locationUtils, PlayerManager playerManager, Game game) {
         this.locationUtils = locationUtils;
-        this.ingameManager = ingameManager;
+        this.playerManager = playerManager;
         this.game = game;
     }
 
     @EventHandler
-    public void onExtraDamage(EntityDamageEvent event) {
+    public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player victim = (Player) event.getEntity();
+        PlayerStatus playerStatus = playerManager.getPlayerStatus(victim);
+        Enum<StatusEnums> status = playerStatus.getStatus();
 
         if (victim.getWorld() == locationUtils.getLobbySpawn().getWorld()) {
             event.setCancelled(true);
@@ -38,18 +42,25 @@ public class DamageListener implements Listener {
             return;
         }
 
-        // todo: add damage prevention on first fall
+        if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            if (status == StatusEnums.ENTER_INGAME) {
+                playerStatus.setStatus(StatusEnums.INGAME);
+                event.setCancelled(true);
+            }
+        }
+
         if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
             event.setDamage(Math.floor(event.getDamage() / 2));
         }
 
-        if (event.getDamage() > victim.getHealth()) {
-            if (event instanceof EntityDamageByEntityEvent &&
-                    ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
-                Player attacker = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-                game.kill(victim, attacker);
-            } else {
-                game.kill(victim, null);
+        if (event instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+            Player attacker = (Player) ((EntityDamageByEntityEvent) event).getDamager();
+
+            // todo: needs to have some time limit
+            playerStatus.setAttacker(attacker);
+
+            if (event.getDamage() > victim.getHealth()) {
+                game.kill(victim);
             }
         }
     }

@@ -91,7 +91,7 @@ public class SetupCommand implements CommandExecutor {
 
                 SkyfightConfig.load().setuped = "true";
                 SkyfightConfig.load().save();
-                // todo: add register events
+                // todo: add register events if player concluded setup and no listeners are active
                 ++section;
                 break;
             default:

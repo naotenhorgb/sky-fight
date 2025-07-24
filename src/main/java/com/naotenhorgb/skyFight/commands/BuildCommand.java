@@ -1,8 +1,9 @@
 package com.naotenhorgb.skyFight.commands;
 
-import com.naotenhorgb.skyFight.managers.IngameManager;
-import com.naotenhorgb.skyFight.utils.Game;
+import com.naotenhorgb.skyFight.data.PlayerStatus;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
+import com.naotenhorgb.skyFight.utils.Game;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,30 +12,33 @@ import org.bukkit.entity.Player;
 
 public class BuildCommand implements CommandExecutor {
 
-    private final IngameManager ingameManager;
+    private final PlayerManager playerManager;
     private final Game game;
 
-    public BuildCommand(IngameManager ingameManager, Game game) {
-        this.ingameManager = ingameManager;
+    public BuildCommand(PlayerManager playerManager, Game game) {
+        this.playerManager = playerManager;
         this.game = game;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!(sender instanceof Player)) return true;
+
         Player player = (Player) sender;
+        PlayerStatus playerStatus = playerManager.getPlayerStatus(player);
+        Enum<StatusEnums> status = playerStatus.getStatus();
 
         if (!player.hasPermission("skyfight.buildcommand")) return true;
 
-        if (ingameManager.hasStatus(player, StatusEnums.INGAME)) {
+        if (status == StatusEnums.ENTER_INGAME) {
             player.sendMessage("Necessário sair da partida para entrar no modo BUILD");
             return true;
         }
 
-        if (ingameManager.hasStatus(player, StatusEnums.BUILD)) {
+        if (status == StatusEnums.BUILD) {
             game.sendToLobby(player);
         } else {
-            ingameManager.setPlayer(player, StatusEnums.BUILD);
+            playerStatus.setStatus(StatusEnums.BUILD);
             player.setGameMode(GameMode.CREATIVE);
         }
 

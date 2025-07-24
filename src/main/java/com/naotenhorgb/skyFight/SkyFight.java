@@ -8,7 +8,7 @@ import com.naotenhorgb.skyFight.data.LocationsConfig;
 import com.naotenhorgb.skyFight.data.MessagesConfig;
 import com.naotenhorgb.skyFight.data.SkyfightConfig;
 import com.naotenhorgb.skyFight.listeners.*;
-import com.naotenhorgb.skyFight.managers.IngameManager;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
 import com.naotenhorgb.skyFight.utils.Cuboid;
 import com.naotenhorgb.skyFight.utils.Game;
 import com.naotenhorgb.skyFight.utils.LocationUtils;
@@ -22,15 +22,14 @@ public final class SkyFight extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // TODO: remove hasStatus method and replace with simpler status == StatusEnums.[enum]
 
         LocationsConfig.load();
         SkyfightConfig.load();
         MessagesConfig.load();
 
-        final IngameManager ingameManager = new IngameManager();
+        final PlayerManager playerManager = new PlayerManager();
         final LocationUtils locationUtils = new LocationUtils();
-        final Game game = new Game(ingameManager, locationUtils);
+        final Game game = new Game(playerManager, locationUtils);
 
         Location lobbySpawn = locationUtils.getLobbySpawn();
         Location gameSpawn = locationUtils.getGameSpawn();
@@ -39,21 +38,21 @@ public final class SkyFight extends JavaPlugin {
 
         this.getCommand("setspawn").setExecutor(new SetSpawnCommand(locationUtils));
         this.getCommand("setup").setExecutor(new SetupCommand(locationUtils));
-        this.getCommand("lobby").setExecutor(new LobbyCommand(locationUtils, ingameManager, game));
-        this.getCommand("build").setExecutor(new BuildCommand(ingameManager, game));
+        this.getCommand("lobby").setExecutor(new LobbyCommand(locationUtils, playerManager, game));
+        this.getCommand("build").setExecutor(new BuildCommand(playerManager, game));
 
         final PluginManager plugin = getServer().getPluginManager();
         if(Boolean.parseBoolean(SkyfightConfig.get().setuped)) {
-            plugin.registerEvents(new JoinListener(ingameManager, game), this);
+            plugin.registerEvents(new JoinListener(playerManager, game), this);
             plugin.registerEvents(new HungerListener(), this);
-            plugin.registerEvents(new DropListener(ingameManager), this);
+            plugin.registerEvents(new DropListener(playerManager), this);
             plugin.registerEvents(new WeatherListener(), this);
             plugin.registerEvents(new SpawnListener(locationUtils), this);
-            plugin.registerEvents(new DamageListener(locationUtils, ingameManager, game), this);
-            plugin.registerEvents(new ItemClickListener(ingameManager), this);
-            plugin.registerEvents(new PlayerMovementListener(locationUtils, ingameManager, game), this);
-            plugin.registerEvents(new BlockBreakListener(ingameManager), this);
-            plugin.registerEvents(new BlockPlaceListener(ingameManager), this);
+            plugin.registerEvents(new DamageListener(locationUtils, playerManager, game), this);
+            plugin.registerEvents(new ItemClickListener(playerManager), this);
+            plugin.registerEvents(new PlayerMovementListener(locationUtils, playerManager, game), this);
+            plugin.registerEvents(new BlockBreakListener(playerManager), this);
+            plugin.registerEvents(new BlockPlaceListener(playerManager), this);
         } else {
             Bukkit.getConsoleSender().sendMessage("\n\n");
             MessagesConfig.send(Bukkit.getConsoleSender(), "no_setup");

@@ -1,38 +1,39 @@
 package com.naotenhorgb.skyFight.utils;
 
 import com.naotenhorgb.skyFight.data.MessagesConfig;
+import com.naotenhorgb.skyFight.data.PlayerStatus;
 import com.naotenhorgb.skyFight.data.enums.InventoryEnums;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
-import com.naotenhorgb.skyFight.managers.IngameManager;
-import org.jetbrains.annotations.Nullable;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
+import org.jetbrains.annotations.NotNull;
 import org.bukkit.entity.Player;
 
 public class Game {
 
     private final MatchMaterial materialConverter = new MatchMaterial();
-    private final IngameManager ingameManager;
+    private final PlayerManager playerManager;
     private final LocationUtils locationUtils;
 
-    public Game(IngameManager ingameManager, LocationUtils locationUtils) {
-        this.ingameManager = ingameManager;
+    public Game(PlayerManager playerManager, LocationUtils locationUtils) {
+        this.playerManager = playerManager;
         this.locationUtils = locationUtils;
     }
 
-    public void sendToGameSpawn(Player player){
-        ingameManager.setPlayer(player, StatusEnums.OUTGAME);
+    public void sendToGameSpawn(@NotNull Player player){
+        playerManager.getPlayerStatus(player).setStatus(StatusEnums.OUTGAME);
         player.teleport(locationUtils.getGameSpawn());
         giveInventory(player, InventoryEnums.SAFEZONE);
         player.setHealth(player.getMaxHealth());
     }
 
-    public void sendToLobby(Player player){
-        ingameManager.setPlayer(player, StatusEnums.OUTGAME);
+    public void sendToLobby(@NotNull Player player){
+        playerManager.getPlayerStatus(player).setStatus(StatusEnums.OUTGAME);
         player.teleport(locationUtils.getLobbySpawn());
         giveInventory(player, InventoryEnums.LOBBY);
         player.setHealth(player.getMaxHealth());
     }
 
-    public void giveInventory(Player player, InventoryEnums mode){
+    public void giveInventory(@NotNull Player player, InventoryEnums mode){
         player.getInventory().clear();
         switch (mode) {
             case LOBBY:
@@ -57,16 +58,23 @@ public class Game {
 
     }
 
-    public void kill(Player victim, @Nullable Player reason) {
-        sendToGameSpawn(victim);
+    public void kill(Player victim) {
+        PlayerStatus victimStatus = playerManager.getPlayerStatus(victim);
+        PlayerStatus attackerStatus = playerManager.getPlayerStatus(victimStatus.getAttacker());
 
-        if(reason != null) {
-            reason.setHealth(reason.getMaxHealth());
+        victimStatus.setStatDeaths(victimStatus.getStatDeaths() + 1);
+
+        if(victimStatus.getAttacker() != null) {
+            Player attacker = victimStatus.getAttacker();
+            attackerStatus.setStatKills(attackerStatus.getStatKills() + 1);
+            // very basic coins just to fill the checklist
+            attackerStatus.setCoins(attackerStatus.getCoins() + 100);
+            attacker.setHealth(attacker.getMaxHealth());
+            // todo:
+            //  send message to people ingame
+            //  give random item bonus to attacker
         }
-        // TODO:
-        //  give random item bonus to reason
-        //  add kill count increase to reason and death increase to victim
-        //  add metadata search for last reason
+        sendToGameSpawn(victim);
     }
 
 }
