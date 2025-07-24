@@ -24,10 +24,10 @@
   - Configurable minimum Y per map ✔️
 
 - **Damage / Death System** ❌  
-  - Custom damage tracking  
+  - Custom damage tracking ✔️  
   - Persistent last-hit tracking (including timed effects)  
   - Supports kill-based perks and rewards  
-  - Kill cause handling for stats and coins  
+  - Kill cause handling for stats and coins ✔️  
 
 - **Item Sorting** ❌  
   - Player-specific item layout  
@@ -44,7 +44,7 @@
   - Player-specific, saved and restored between sessions  
 
 - **Stats and Coins** ❌  
-  - Kill rewards  
+  - Kill rewards ✔️  
   - Void kill scaling (based on victim's HP)  
   - Void suicide penalties  
   - Death cause-based point adjustments  
