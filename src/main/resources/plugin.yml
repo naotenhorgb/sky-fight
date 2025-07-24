@@ -17,3 +17,6 @@ commands:
   lobby:
     permission: skyfight.default
     description: "Muda de estado para outro lugar"
+  sendstatus:
+    permission: skyfight.default
+    description: "Envia o status"

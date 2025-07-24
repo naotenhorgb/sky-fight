@@ -42,26 +42,24 @@ public class DamageListener implements Listener {
             return;
         }
 
+        if (event.getDamage() > victim.getHealth()) {
+            event.setCancelled(true);
+            game.kill(victim);
+        }
+
         if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
             if (status == StatusEnums.ENTER_INGAME) {
                 playerStatus.setStatus(StatusEnums.INGAME);
                 event.setCancelled(true);
+            } else {
+                event.setDamage(Math.floor(event.getDamage() / 2));
             }
-        }
-
-        if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            event.setDamage(Math.floor(event.getDamage() / 2));
+            return;
         }
 
         if (event instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
             Player attacker = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-
-            // todo: needs to have some time limit
             playerStatus.setAttacker(attacker);
-
-            if (event.getDamage() > victim.getHealth()) {
-                game.kill(victim);
-            }
         }
     }
 }

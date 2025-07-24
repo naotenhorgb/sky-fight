@@ -47,13 +47,13 @@ public class PlayerMovementListener implements Listener {
             playerStatus.setStatus(StatusEnums.ENTER_INGAME);
         }
 
-        if (player.getLocation().getY() < locationUtils.getDeathY() || !locationUtils.getGameBoundaries().isInIgnoreY(player.getLocation())) {
+        else if (player.getLocation().getY() < locationUtils.getDeathY() || !locationUtils.getGameBoundaries().isInIgnoreY(player.getLocation())) {
             if (status == StatusEnums.INGAME || status == StatusEnums.ENTER_INGAME) {
                 game.kill(player);
             }
         }
 
-        if (locationUtils.getGameSafezone().isIn(player) && status == StatusEnums.INGAME) {
+        else if (locationUtils.getGameSafezone().isIn(player) && status == StatusEnums.INGAME) {
             game.kill(player);
         }
 

@@ -1,9 +1,6 @@
 package com.naotenhorgb.skyFight;
 
-import com.naotenhorgb.skyFight.commands.BuildCommand;
-import com.naotenhorgb.skyFight.commands.LobbyCommand;
-import com.naotenhorgb.skyFight.commands.SetSpawnCommand;
-import com.naotenhorgb.skyFight.commands.SetupCommand;
+import com.naotenhorgb.skyFight.commands.*;
 import com.naotenhorgb.skyFight.data.LocationsConfig;
 import com.naotenhorgb.skyFight.data.MessagesConfig;
 import com.naotenhorgb.skyFight.data.SkyfightConfig;
@@ -40,6 +37,7 @@ public final class SkyFight extends JavaPlugin {
         this.getCommand("setup").setExecutor(new SetupCommand(locationUtils));
         this.getCommand("lobby").setExecutor(new LobbyCommand(locationUtils, playerManager, game));
         this.getCommand("build").setExecutor(new BuildCommand(playerManager, game));
+        this.getCommand("sendstatus").setExecutor(new SendStatusCommand(playerManager));
 
         final PluginManager plugin = getServer().getPluginManager();
         if(Boolean.parseBoolean(SkyfightConfig.get().setuped)) {

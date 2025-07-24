@@ -13,20 +13,21 @@ import java.util.UUID;
 @Getter
 public class PlayerStatus {
 
-    private int coins;
-    private int statKills;
-    private int statDeaths;
-    private int statBlocks;
+    // todo: add default system for preventing null issues
+
+    private int coins = 0;
+    private int statKills = 0;
+    private int statDeaths = 0;
+    private int statBlocks = 0;
+
+    private int itemHoe = 0;
+    private int itemBaloon = 0;
+    private int itemSnowball = 0;
 
     private HashMap<UUID, Location> blocks;
     private Enum<StatusEnums> status;
 
     private Player attacker;
-    private Player target;
-
-    private int itemHoe;
-    private int itemBaloon;
-    private int itemSnowball;
 
 
 
