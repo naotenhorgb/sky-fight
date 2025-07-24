@@ -60,11 +60,10 @@ public class Game {
 
     public void kill(Player victim) {
         PlayerStatus victimStatus = playerManager.getPlayerStatus(victim);
-        PlayerStatus attackerStatus = playerManager.getPlayerStatus(victimStatus.getAttacker());
-
         victimStatus.setStatDeaths(victimStatus.getStatDeaths() + 1);
 
         if(victimStatus.getAttacker() != null) {
+            PlayerStatus attackerStatus = playerManager.getPlayerStatus(victimStatus.getAttacker());
             Player attacker = victimStatus.getAttacker();
             attackerStatus.setStatKills(attackerStatus.getStatKills() + 1);
             // very basic coins just to fill the checklist

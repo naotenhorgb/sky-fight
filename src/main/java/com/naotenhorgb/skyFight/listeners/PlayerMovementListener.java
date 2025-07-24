@@ -48,7 +48,7 @@ public class PlayerMovementListener implements Listener {
         }
 
         if (player.getLocation().getY() < locationUtils.getDeathY() || !locationUtils.getGameBoundaries().isInIgnoreY(player.getLocation())) {
-            if (status == StatusEnums.INGAME) {
+            if (status == StatusEnums.INGAME || status == StatusEnums.ENTER_INGAME) {
                 game.kill(player);
             }
         }

@@ -13,14 +13,20 @@ import java.util.UUID;
 @Getter
 public class PlayerStatus {
 
+    private int coins;
     private int statKills;
     private int statDeaths;
     private int statBlocks;
+
     private HashMap<UUID, Location> blocks;
     private Enum<StatusEnums> status;
+
     private Player attacker;
     private Player target;
-    private int coins;
+
+    private int itemHoe;
+    private int itemBaloon;
+    private int itemSnowball;
 
 
 
