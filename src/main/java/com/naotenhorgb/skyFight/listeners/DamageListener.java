@@ -8,7 +8,6 @@ import com.naotenhorgb.skyFight.utils.LocationUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 
@@ -33,6 +32,9 @@ public class DamageListener implements Listener {
         Enum<StatusEnums> status = playerStatus.getStatus();
 
         if (victim.getWorld() == locationUtils.getLobbySpawn().getWorld()) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+                game.sendToLobby(victim);
+            }
             event.setCancelled(true);
             return;
         }
@@ -42,7 +44,7 @@ public class DamageListener implements Listener {
             return;
         }
 
-        if (event.getDamage() > victim.getHealth()) {
+        if (event.getDamage() >= victim.getHealth()) {
             event.setCancelled(true);
             game.kill(victim);
         }
@@ -54,12 +56,6 @@ public class DamageListener implements Listener {
             } else {
                 event.setDamage(Math.floor(event.getDamage() / 2));
             }
-            return;
-        }
-
-        if (event instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
-            Player attacker = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-            playerStatus.setAttacker(attacker);
         }
     }
 }

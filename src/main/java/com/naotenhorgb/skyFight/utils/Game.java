@@ -74,6 +74,7 @@ public class Game {
             //  give random item bonus to attacker
         }
         sendToGameSpawn(victim);
+        victimStatus.setAttacker(null);
     }
 
 }

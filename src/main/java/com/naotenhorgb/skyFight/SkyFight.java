@@ -51,6 +51,7 @@ public final class SkyFight extends JavaPlugin {
             plugin.registerEvents(new PlayerMovementListener(locationUtils, playerManager, game), this);
             plugin.registerEvents(new BlockBreakListener(playerManager), this);
             plugin.registerEvents(new BlockPlaceListener(playerManager), this);
+            plugin.registerEvents(new DamageByEntityListener(playerManager), this);
         } else {
             Bukkit.getConsoleSender().sendMessage("\n\n");
             MessagesConfig.send(Bukkit.getConsoleSender(), "no_setup");
