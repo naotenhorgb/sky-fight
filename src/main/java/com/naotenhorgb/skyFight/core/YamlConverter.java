@@ -23,6 +23,7 @@ public class YamlConverter {
                     "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?)$"
     );
 
+    // todo: remove these warnings when no setup is found
     public Location stringToLocation(String string) {
         if (!isValidLocation(string)) {
             Bukkit.getLogger().warning("[SkyFight] Invalid location string (wrongly formated)");
