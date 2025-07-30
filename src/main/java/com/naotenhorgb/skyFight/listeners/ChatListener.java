@@ -51,7 +51,8 @@ public class ChatListener implements Listener {
             return;
         }
 
-        step++;
+        // todo: add verification for gameSpawn being outside safezone
+
         switch (step) {
             case 0:
                 MessagesUtils.sendWithSetupPrefix(player, "setup_0");
@@ -100,6 +101,7 @@ public class ChatListener implements Listener {
                 step = 0;
                 break;
         }
+        step++;
     }
 
     private boolean isWorldLobby(Location location, Player player) {

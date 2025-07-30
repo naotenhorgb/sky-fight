@@ -40,14 +40,16 @@ public class SetupCommand implements CommandExecutor {
             return true;
         }
 
-        String sub = args[0].toLowerCase();
+        String subcommand = args[0].toLowerCase();
 
         if (location.getY() < 0 && location.getY() > 255) {
             MessagesUtils.sendWithSetupPrefix(player, "setup_invalidY");
             return true;
         }
 
-        switch (sub) {
+        // todo: add verification for gameSpawn being outside safezone
+
+        switch (subcommand) {
             case "auto":
                 playerStatus.setStatus(StatusEnums.BUILD);
                 MessagesUtils.send(player, "setup_auto");
