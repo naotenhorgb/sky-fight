@@ -19,9 +19,8 @@ public class DamageByEntityListener implements Listener {
 
     @EventHandler
     public void onProjectileDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player victim)) return;
 
-        Player victim = (Player) event.getEntity();
         Entity damageSource = event.getDamager();
 
         PlayerStatus playerStatus = playerManager.getPlayerStatus(victim);

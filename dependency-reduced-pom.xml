@@ -16,7 +16,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.5.3</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -25,35 +25,24 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <source>src/main/java</source>
-                <source>target/generated-sources/annotations</source>
-              </sourceDirs>
-            </configuration>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
-          <jvmTarget>1.8</jvmTarget>
+          <relocations>
+            <relocation>
+              <pattern>com.cryptomorin.xseries</pattern>
+              <shadedPattern>my.plugin.utils</shadedPattern>
+            </relocation>
+          </relocations>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
+                <exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
+                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+                <exclude>com/cryptomorin/xseries/SkullCacheListener*</exclude>
+              </excludes>
+            </filter>
+          </filters>
         </configuration>
       </plugin>
       <plugin>
@@ -112,12 +101,6 @@
       <artifactId>lombok</artifactId>
       <version>1.18.34</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>1.9.24</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
   <properties>

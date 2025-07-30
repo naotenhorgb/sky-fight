@@ -9,11 +9,11 @@ public class MessagesUtils {
     // todo: large cleanup
 
     public static String getPrefix() {
-        return color(MessagesConfig.get().prefix);
+        return color(MessagesConfig.getMessagesConfig().prefix);
     }
 
     public static String getSetupPrefix() {
-        return color(MessagesConfig.get().setup_prefix);
+        return color(MessagesConfig.getMessagesConfig().setup_prefix);
     }
 
     public static String format(String msg) {

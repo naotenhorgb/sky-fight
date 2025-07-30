@@ -1,10 +1,10 @@
 package com.naotenhorgb.skyFight.listeners;
 
+import com.naotenhorgb.skyFight.core.Game;
+import com.naotenhorgb.skyFight.core.LocationUtils;
 import com.naotenhorgb.skyFight.data.PlayerStatus;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import com.naotenhorgb.skyFight.managers.PlayerManager;
-import com.naotenhorgb.skyFight.core.Game;
-import com.naotenhorgb.skyFight.core.LocationUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,9 +25,8 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player victim)) return;
 
-        Player victim = (Player) event.getEntity();
         PlayerStatus playerStatus = playerManager.getPlayerStatus(victim);
         Enum<StatusEnums> status = playerStatus.getStatus();
 

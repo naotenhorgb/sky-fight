@@ -1,9 +1,9 @@
 package com.naotenhorgb.skyFight.commands;
 
+import com.naotenhorgb.skyFight.core.Game;
 import com.naotenhorgb.skyFight.data.PlayerStatus;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import com.naotenhorgb.skyFight.managers.PlayerManager;
-import com.naotenhorgb.skyFight.core.Game;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,9 +22,8 @@ public class BuildCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player player)) return true;
 
-        Player player = (Player) sender;
         PlayerStatus playerStatus = playerManager.getPlayerStatus(player);
         Enum<StatusEnums> status = playerStatus.getStatus();
 

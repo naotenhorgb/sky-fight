@@ -15,17 +15,16 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class SkyfightConfig {
 
-    public String setuped;
     public String debug;
     public String bungee;
 
-    private static SkyfightConfig instance;
+    private static SkyfightConfig skyfightConfig;
 
-    public static SkyfightConfig get() {
-        if (instance == null) {
-            instance = load();
+    public static SkyfightConfig getSkyfightConfig() {
+        if (skyfightConfig == null) {
+            skyfightConfig = load();
         }
-        return instance;
+        return skyfightConfig;
     }
 
     public static SkyfightConfig load() {
@@ -45,7 +44,7 @@ public class SkyfightConfig {
 
             YamlReader yamlReader = new YamlReader(reader);
             SkyfightConfig config = yamlReader.read(SkyfightConfig.class);
-            instance = config;
+            skyfightConfig = config;
             return config;
 
         } catch (IOException exception) {

@@ -19,8 +19,7 @@ public class SendStatusCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
+        if (!(sender instanceof Player player)) return true;
         PlayerStatus playerStatus = playerManager.getPlayerStatus(player);
         player.sendMessage("Status: " + playerStatus.getStatus().toString());
         if (playerStatus.getAttacker() != null) player.sendMessage("Attacker: " + playerStatus.getAttacker());

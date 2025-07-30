@@ -26,8 +26,9 @@ public class MessagesConfig {
     public String setup_void;
     public String setup_borderpos1;
     public String setup_borderpos2;
-    public String setup_reset;
     public String setup_help;
+    public String setup_finalized;
+    public String setup_auto_executing;
 
     public String setup_0;
     public String setup_1;
@@ -45,13 +46,13 @@ public class MessagesConfig {
     public String no_setup;
 
 
-    private static MessagesConfig instance;
+    private static MessagesConfig messagesConfig;
 
-    public static MessagesConfig get() {
-        if (instance == null) {
-            instance = load();
+    public static MessagesConfig getMessagesConfig() {
+        if (messagesConfig == null) {
+            messagesConfig = load();
         }
-        return instance;
+        return messagesConfig;
     }
 
     public static MessagesConfig load() {
@@ -71,7 +72,7 @@ public class MessagesConfig {
 
             YamlReader yamlReader = new YamlReader(reader);
             MessagesConfig config = yamlReader.read(MessagesConfig.class);
-            instance = config;
+            messagesConfig = config;
             return config;
 
         } catch (IOException exception) {
@@ -81,7 +82,7 @@ public class MessagesConfig {
 
     public static String get(String key) {
         try {
-            String raw = (String) instance.getClass().getField(key).get(instance);
+            String raw = (String) messagesConfig.getClass().getField(key).get(messagesConfig);
             return MessagesUtils.format(raw);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             return MessagesUtils.format("&cMensagem não encontrada: &e" + key);

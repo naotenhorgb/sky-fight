@@ -1,9 +1,9 @@
 package com.naotenhorgb.skyFight.commands;
 
-import com.naotenhorgb.skyFight.managers.PlayerManager;
 import com.naotenhorgb.skyFight.core.Game;
 import com.naotenhorgb.skyFight.core.LocationUtils;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
+import com.naotenhorgb.skyFight.managers.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +23,9 @@ public class LobbyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             return true;
         }
-        Player player = (Player) sender;
         if (playerManager.getPlayerStatus(player).getStatus() == StatusEnums.ENTER_INGAME) {
             game.sendToGameSpawn(player);
             return true;

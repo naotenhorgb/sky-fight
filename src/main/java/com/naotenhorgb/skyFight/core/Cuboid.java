@@ -1,20 +1,21 @@
 package com.naotenhorgb.skyFight.core;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 public class Cuboid {
 
     private final int xMin;
     private final int xMax;
-    private final int yMin;
+    @Getter private final int yMin;
     private final int yMax;
     private final int zMin;
     private final int zMax;
@@ -69,10 +70,6 @@ public class Cuboid {
 
     public int getHeight() {
         return this.yMax - this.yMin + 1;
-    }
-
-    public int getyMin() {
-        return yMin;
     }
 
     public Location getPoint1() {

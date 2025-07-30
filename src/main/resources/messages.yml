@@ -6,10 +6,10 @@ setup_lobbyspawn: "&aLocal do lobby definido com sucesso."
 setup_safezonespawn: "&aLocal da safezone definido com sucesso."
 setup_safezonepos1: "&aPrimeira posição da safezone definida."
 setup_safezonepos2: "&aSegunda posição da safezone definida."
-setup_void: "&aAltura mínima (morte por void) definida como &e%y%"
+setup_void: "&aAltura mínima (morte por void) definida como &e{y}"
 setup_borderpos1: "&aPrimeira posição da borda definida."
 setup_borderpos2: "&aSegunda posição da borda definida."
-setup_reset: "&cSetup finalizado ou reiniciado."
+setup_finalized: "&fSetup concluido. Reinicie o servidor para tomar efeito"
 
 setup_0: "&fEtapa 0 - &aDigite &e'next' &apara definir o spawn do lobby."
 setup_1: "&fEtapa 1 - &fSpawn do lobby definido. &aDigite &e'next' &apara definir o spawn da safezone."
@@ -18,8 +18,9 @@ setup_3: "&fEtapa 3 - &fPrimeira posição da safezone definida. &aDigite &e'nex
 setup_4: "&fEtapa 4 - &fSafezone salva com sucesso. &aDigite &e'next' &apara definir o void (altura de morte)."
 setup_5: "&fEtapa 5 - &fVoid definido. &aDigite &e'next' &apara definir a primeira posição da borda."
 setup_6: "&fEtapa 6 - &fPrimeira posição da borda definida. &aDigite &e'next' &apara definir a segunda posição da borda."
-setup_7: "&fEtapa 7 - &fBorda definida e setup concluído! &aVocê pode digitar &e'next' &apara reiniciar o setup, se quiser."
+setup_7: "&fEtapa 7 - &fSetup concluído. Reinicie o servidor para tomar efeito"
 
+setup_auto_executing: "&aO setup automático já está em execução pelo jogador + {player}"
 setup_different_executor: "&cApenas o jogador que iniciou o setup pode prosseguir."
 setup_invalidY: "&cA Y do local atual deve estar entre 0 e 255."
 setup_same_world: "&cO lobby e a arena não podem estar no mesmo mundo."
@@ -36,5 +37,4 @@ setup_help: |
   &e/setup void &f- define o limite Y (morte)
   &e/setup borderpos1 &f- define a primeira ponta do limite do mapa
   &e/setup borderpos2 &f- define a segunda ponta e finaliza o setup
-  &e/setup reset &f- reinicia todo o setup
 

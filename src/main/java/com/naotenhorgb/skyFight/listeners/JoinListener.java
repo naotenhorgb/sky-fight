@@ -1,11 +1,11 @@
 package com.naotenhorgb.skyFight.listeners;
 
+import com.naotenhorgb.skyFight.core.Game;
+import com.naotenhorgb.skyFight.core.LocationUtils;
 import com.naotenhorgb.skyFight.core.MessagesUtils;
 import com.naotenhorgb.skyFight.data.PlayerStatus;
-import com.naotenhorgb.skyFight.data.SkyfightConfig;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import com.naotenhorgb.skyFight.managers.PlayerManager;
-import com.naotenhorgb.skyFight.core.Game;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,11 +16,12 @@ public class JoinListener implements Listener {
 
     private final Game game;
     private final PlayerManager playerManager;
-    private final boolean setup = Boolean.parseBoolean(SkyfightConfig.get().setuped);
+    private final LocationUtils locationUtils ;
 
-    public JoinListener(PlayerManager playerManager, Game game) {
-        this.playerManager = playerManager;
+    public JoinListener(Game game, PlayerManager playerManager, LocationUtils locationUtils) {
         this.game = game;
+        this.playerManager = playerManager;
+        this.locationUtils = locationUtils;
     }
 
     @EventHandler
@@ -33,7 +34,7 @@ public class JoinListener implements Listener {
         player.setPlayerTime(1200, false);
         player.setFoodLevel(20);
 
-        if(!setup){
+        if(!locationUtils.getSetuped()){
             MessagesUtils.send(player, "no_setup");
             playerStatus.setStatus(StatusEnums.BUILD);
             return;

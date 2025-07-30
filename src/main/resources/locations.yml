@@ -1,14 +1,14 @@
-lobby_spawn: "world2:0:100:0:0:0"
-game_spawn: "world2:0:100:0:0:0"
+lobby_spawn: " "
+game_spawn: " "
 
 game_safezone:
-  - "world2:0:64:0:0:0"
-  - "world2:0:64:0:0:0"
+  - " "
+  - " "
 
 game_boundaries:
-  - "world2:0:64:0:0:0"
-  - "world2:0:64:0:0:0"
+  - " "
+  - " "
 
-void_yloc: 60
+void_yloc: 0
 
 

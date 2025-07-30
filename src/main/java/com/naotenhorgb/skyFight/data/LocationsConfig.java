@@ -16,19 +16,19 @@ import java.util.Objects;
 
 public class LocationsConfig {
 
-    public int void_yloc = 64;
-    public String lobby_spawn = "world:0:100:0:0:0";
-    public String game_spawn = "world:0:100:0:0:0";
+    public String void_yloc = " ";
+    public String lobby_spawn = " ";
+    public String game_spawn = " ";
     public List<String> game_safezone = new ArrayList<>();
     public List<String> game_boundaries = new ArrayList<>();
 
-    private static LocationsConfig instance;
+    private static LocationsConfig locationsConfig;
 
-    public static LocationsConfig get() {
-        if (instance == null) {
-            instance = load();
+    public static LocationsConfig getLocationsConfig() {
+        if (locationsConfig == null) {
+            locationsConfig = load();
         }
-        return instance;
+        return locationsConfig;
     }
 
     public static LocationsConfig load() {
@@ -48,7 +48,7 @@ public class LocationsConfig {
 
             YamlReader yamlReader = new YamlReader(reader);
             LocationsConfig config = yamlReader.read(LocationsConfig.class);
-            instance = config;
+            locationsConfig = config;
             return config;
 
         } catch (IOException exception) {
@@ -69,6 +69,14 @@ public class LocationsConfig {
             yamlWriter.close();
         } catch (IOException e) {
             throw new RuntimeException("Não foi possível salvar o locations.yml", e);
+        }
+    }
+
+    public static String get(String key) {
+        try {
+            return (String) locationsConfig.getClass().getField(key).get(locationsConfig);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
         }
     }
 

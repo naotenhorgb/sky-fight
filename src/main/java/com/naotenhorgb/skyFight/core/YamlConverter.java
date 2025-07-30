@@ -7,24 +7,34 @@ import org.bukkit.World;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class YamlConverter {
 
+    // todo:
+    //  replace regex with non-regex matching
+    //  more robust logging
+    private final Pattern locationPattern = Pattern.compile(
+            "^[^:]+:" +
+                    "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?):" +
+                    "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?):" +
+                    "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?):" +
+                    "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?):" +
+                    "([-+]?\\d+\\.?\\d*(?:[eE][-+]?\\d+)?)$"
+    );
+
     public Location stringToLocation(String string) {
-        List<String> parts = Arrays.asList(string.split(":"));
-        if (parts.size() < 6) {
-            Bukkit.getLogger().warning("[SkyFight] Invalid location string (too short): " + string);
-            return null;
+        if (!isValidLocation(string)) {
+            Bukkit.getLogger().warning("[SkyFight] Invalid location string (wrongly formated)");
+            return new Location(Bukkit.getWorlds().get(0), 0, 0, 0, 0, 0);
         }
+
+        List<String> parts = Arrays.asList(string.split(":"));
 
         World world = Bukkit.getWorld(parts.get(0));
         if (world == null) {
             Bukkit.getLogger().warning("[SkyFight] World not found, defaulting to default world: " + parts.get(0));
             world = Bukkit.getWorlds().get(0);
-            if(world == null) {
-                Bukkit.getLogger().severe("[SkyFight] No worlds found.");
-                return null;
-            }
         }
 
         try {
@@ -40,8 +50,6 @@ public class YamlConverter {
         }
     }
 
-
-
     public Cuboid stringsToCuboid(List<String> list) {
         if (list == null || list.size() < 2) return null;
         Location loc1 = stringToLocation(list.get(0));
@@ -49,8 +57,15 @@ public class YamlConverter {
         return new Cuboid(loc1, loc2);
     }
 
+    public int stringsToInt(String string) {
+        if (string == null) {
+            Bukkit.getLogger().warning("[SkyFight] int not found");
+            return 0;
+        }
+        return Integer.parseInt(string);
+    }
 
-    public String locationToString(Location location){
+    public String locationToString(Location location) {
         return location.getWorld().getName() + ":"
                 + location.getX() + ":"
                 + location.getY() + ":"
@@ -64,6 +79,14 @@ public class YamlConverter {
         parts.add(locationToString(cuboid.getPoint1()));
         parts.add(locationToString(cuboid.getPoint2()));
         return parts;
+    }
+
+    public String intToString(int i) {
+        return String.valueOf(i);
+    }
+
+    private boolean isValidLocation(String string) {
+        return locationPattern.matcher(string).matches();
     }
 
 }

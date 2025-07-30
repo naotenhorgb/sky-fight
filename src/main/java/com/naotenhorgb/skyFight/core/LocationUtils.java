@@ -9,19 +9,11 @@ public class LocationUtils {
     private final LocationsConfig config;
     private final YamlConverter yamlConverter = new YamlConverter();
 
-    @Getter
-    private Location lobbySpawn;
-    @Getter
-    private Location gameSpawn;
-    @Getter
-    private Cuboid gameSafezone;
-    @Getter
-    private Cuboid gameBoundaries;
-    @Getter
-    private int deathY;
-    @Getter
-    private boolean finished;
-
+    @Getter private Location lobbySpawn;
+    @Getter private Location gameSpawn;
+    @Getter private Cuboid gameSafezone;
+    @Getter private Cuboid gameBoundaries;
+    @Getter private int deathY;
 
     public LocationUtils() {
         this.config = LocationsConfig.load();
@@ -29,8 +21,7 @@ public class LocationUtils {
         this.gameSpawn = yamlConverter.stringToLocation(config.game_spawn);
         this.gameSafezone = yamlConverter.stringsToCuboid(config.game_safezone);
         this.gameBoundaries = yamlConverter.stringsToCuboid(config.game_boundaries);
-        this.deathY = config.void_yloc;
-        this.finished = isSetupDone();
+        this.deathY = yamlConverter.stringsToInt(config.void_yloc);
     }
 
     public void setLobbySpawn(Location lobbySpawn) {
@@ -59,15 +50,16 @@ public class LocationUtils {
 
     public void setDeathY(int deathY) {
         this.deathY = deathY;
-        config.void_yloc = deathY;
+        config.void_yloc = yamlConverter.intToString(deathY);
         config.save();
     }
 
-    public boolean isSetupDone() {
-        if (lobbySpawn.getWorld() != gameSpawn.getWorld()) {
-            this.finished = true;
-            return true;
-        }
-        return false;
+    public boolean getSetuped() {
+        return !config.lobby_spawn.equals(" ");
     }
+
+    public String get(String key) {
+        return LocationsConfig.get(key);
+    }
+
 }
