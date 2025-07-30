@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.core;
 
 import java.util.ArrayList;
 import java.util.Iterator;

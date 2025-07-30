@@ -1,8 +1,8 @@
 package com.naotenhorgb.skyFight.commands;
 
 import com.naotenhorgb.skyFight.managers.PlayerManager;
-import com.naotenhorgb.skyFight.utils.Game;
-import com.naotenhorgb.skyFight.utils.LocationUtils;
+import com.naotenhorgb.skyFight.core.Game;
+import com.naotenhorgb.skyFight.core.LocationUtils;
 import com.naotenhorgb.skyFight.data.enums.StatusEnums;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

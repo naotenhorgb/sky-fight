@@ -1,6 +1,6 @@
 package com.naotenhorgb.skyFight.listeners;
 
-import com.naotenhorgb.skyFight.utils.LocationUtils;
+import com.naotenhorgb.skyFight.core.LocationUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;

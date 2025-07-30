@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,8 +19,12 @@ public class YamlConverter {
 
         World world = Bukkit.getWorld(parts.get(0));
         if (world == null) {
-            Bukkit.getLogger().warning("[SkyFight] World not found: " + parts.get(0));
-            return null;
+            Bukkit.getLogger().warning("[SkyFight] World not found, defaulting to default world: " + parts.get(0));
+            world = Bukkit.getWorlds().get(0);
+            if(world == null) {
+                Bukkit.getLogger().severe("[SkyFight] No worlds found.");
+                return null;
+            }
         }
 
         try {

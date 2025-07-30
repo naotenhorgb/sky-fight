@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.core;
 
 import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Material;

@@ -2,9 +2,8 @@ package com.naotenhorgb.skyFight.data;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.naotenhorgb.skyFight.SkyFight;
-import com.naotenhorgb.skyFight.utils.MessagesUtils;
+import com.naotenhorgb.skyFight.core.MessagesUtils;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.command.CommandSender;
 
 import java.io.*;
 import java.net.URL;
@@ -16,7 +15,19 @@ import java.util.Objects;
 public class MessagesConfig {
 
     public String prefix;
+    public String setup_prefix;
     public String no_permission;
+
+    public String setup_auto;
+    public String setup_lobbyspawn;
+    public String setup_safezonespawn;
+    public String setup_safezonepos1;
+    public String setup_safezonepos2;
+    public String setup_void;
+    public String setup_borderpos1;
+    public String setup_borderpos2;
+    public String setup_reset;
+    public String setup_help;
 
     public String setup_0;
     public String setup_1;
@@ -26,10 +37,13 @@ public class MessagesConfig {
     public String setup_5;
     public String setup_6;
     public String setup_7;
-    public String setup_reset;
+
+    public String setup_different_executor;
+    public String setup_invalidY;
     public String setup_same_world;
     public String unknown_error;
     public String no_setup;
+
 
     private static MessagesConfig instance;
 
@@ -74,10 +88,4 @@ public class MessagesConfig {
         }
     }
 
-    public static void send(CommandSender sender, String key) {
-        String msg = get(key);
-        for (String line : msg.split("\n")) {
-            sender.sendMessage(MessagesUtils.getPrefix() + " " + line);
-        }
-    }
 }

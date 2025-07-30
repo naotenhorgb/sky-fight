@@ -1,8 +1,7 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.core;
 
 import com.naotenhorgb.skyFight.data.LocationsConfig;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Location;
 
 public class LocationUtils {
@@ -14,24 +13,24 @@ public class LocationUtils {
     private Location lobbySpawn;
     @Getter
     private Location gameSpawn;
-    @Getter @Setter
-    private Cuboid arenaSafezone;
+    @Getter
+    private Cuboid gameSafezone;
     @Getter
     private Cuboid gameBoundaries;
     @Getter
     private int deathY;
+    @Getter
+    private boolean finished;
+
 
     public LocationUtils() {
         this.config = LocationsConfig.load();
         this.lobbySpawn = yamlConverter.stringToLocation(config.lobby_spawn);
         this.gameSpawn = yamlConverter.stringToLocation(config.game_spawn);
-        this.arenaSafezone = yamlConverter.stringsToCuboid(config.game_safezone);
+        this.gameSafezone = yamlConverter.stringsToCuboid(config.game_safezone);
         this.gameBoundaries = yamlConverter.stringsToCuboid(config.game_boundaries);
         this.deathY = config.void_yloc;
-    }
-
-    public Cuboid getGameSafezone() {
-        return arenaSafezone;
+        this.finished = isSetupDone();
     }
 
     public void setLobbySpawn(Location lobbySpawn) {
@@ -47,7 +46,7 @@ public class LocationUtils {
     }
 
     public void setGameSafezone(Cuboid gameSafezone) {
-        this.arenaSafezone = gameSafezone;
+        this.gameSafezone = gameSafezone;
         config.game_safezone = yamlConverter.cuboidToString(gameSafezone);
         config.save();
     }
@@ -62,5 +61,13 @@ public class LocationUtils {
         this.deathY = deathY;
         config.void_yloc = deathY;
         config.save();
+    }
+
+    public boolean isSetupDone() {
+        if (lobbySpawn.getWorld() != gameSpawn.getWorld()) {
+            this.finished = true;
+            return true;
+        }
+        return false;
     }
 }

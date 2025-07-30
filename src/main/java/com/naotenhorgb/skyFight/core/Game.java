@@ -1,4 +1,4 @@
-package com.naotenhorgb.skyFight.utils;
+package com.naotenhorgb.skyFight.core;
 
 import com.naotenhorgb.skyFight.data.MessagesConfig;
 import com.naotenhorgb.skyFight.data.PlayerStatus;
