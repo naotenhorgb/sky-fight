@@ -16,7 +16,6 @@
   - Players can leave, but can't return ✔️  
   - Void, and region limit ✔️  
   - Void protection applies only to "ingame" players ✔️  
-  - Efficient radius check for high player count [requires testing] ❌
 
 - **Void/Boundary System** ✔️  
   - Instant death below configured Y-level ✔️  
@@ -59,8 +58,8 @@
 
 - **Miscellaneous** ❌
   - Spawn position → later database  
-  - Safe Zone: Radius, height, return-blocking  
-  - Void system: Minimum Y, only affects ingame players  
+  - Safe Zone: cuboid, return-blocking ✔️  
+  - Void system: Minimum Y, only affects ingame players ✔️  
   - Point system: Cause-based, configurable gain/loss per event  
   - Item layout: Player-defined and persistent  
 
